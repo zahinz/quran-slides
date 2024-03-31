@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+'use client';
+
+import { useEffect, useState } from 'react';
 
 type ApiQuranChapter = {
   id: number;
@@ -20,7 +22,7 @@ const Home = () => {
   >(undefined);
   const fetchChapter = async () => {
     const res = await fetch(
-      "https://api.quran.com/api/v4/chapters?language=en"
+      'https://api.quran.com/api/v4/chapters?language=en'
     );
     const data = await res.json();
     setChapters(data.chapters);
