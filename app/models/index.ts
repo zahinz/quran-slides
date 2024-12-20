@@ -99,3 +99,4 @@ interface Meta {
 };
 
 export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
+export type Language = 'en' | 'ms';

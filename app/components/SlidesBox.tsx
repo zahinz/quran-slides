@@ -45,7 +45,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	}, [chapterId, verseFrom, verseTo]);
 
 	const fetchVersesTranslation = async (chapterId: number, verseFrom: number, verseTo: number) => {
-		const res = await getQuranChapterTranslation(chapterId);
+		const res = await getQuranChapterTranslation(chapterId, 'ms');
 		if (res) {
 			const filteredTranslations = res.translations.slice(verseFrom - 1, verseTo);
 			setFilteredVerses((prevFiltered) => {

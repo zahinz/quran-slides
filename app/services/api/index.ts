@@ -1,7 +1,10 @@
-import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, VerseType, GetQuranVerseRecitationResponse } from '../../models';
+import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, VerseType, GetQuranVerseRecitationResponse, Language } from '../../models';
 
 const BASE_URL = 'https://api.quran.com/api/v4';
-const TRANSLATIONS_RESOURCE_ID = 131;
+const TRANSLATIONS_RESOURCE_ID = {
+	en: 131,
+	ms: 39
+};
 const RECITATION_ID = 2;
 export const VERSES_AUDIO_URL = 'https://verses.quran.com';
 
@@ -53,9 +56,9 @@ export const getQuranVerseByKey = async (chapterId: number, verseId: number = 1)
 	}
 };
 
-export const getQuranVerseTranslation = async (verseKey: string): Promise<GetQuranTranslationResponse | null> => {
+export const getQuranVerseTranslation = async (verseKey: string, language: Language = 'en'): Promise<GetQuranTranslationResponse | null> => {
 	try {
-		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID}?verse_key=${verseKey}`);
+		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID[language]}?verse_key=${verseKey}`);
 
 		if (!response.ok) {
 			return null;
@@ -69,9 +72,9 @@ export const getQuranVerseTranslation = async (verseKey: string): Promise<GetQur
 	}
 }
 
-export const getQuranChapterTranslation = async (chapterId: number): Promise<GetQuranTranslationResponse | null> => {
+export const getQuranChapterTranslation = async (chapterId: number, language: Language = 'en'): Promise<GetQuranTranslationResponse | null> => {
 	try {
-		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID}?chapter_number=${chapterId}`);
+		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID[language]}?chapter_number=${chapterId}`);
 
 		if (!response.ok) {
 			return null;
