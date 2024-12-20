@@ -1,18 +1,23 @@
 
-import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import QsButton from './QsButton';
 import { RefObject, useEffect, useState } from 'react';
+import { Audio } from '../models';
 
 interface SlideControlsProps {
 	containerRef: RefObject<HTMLDivElement>;
 	onClickLeft: () => void;
 	onClickRight: () => void;
+	slideAudio: Audio;
+	onClickAudio: () => void;
 }
 
 const SlideControls = ({
 	containerRef,
 	onClickLeft,
-	onClickRight
+	onClickRight,
+	slideAudio,
+	onClickAudio
 }: SlideControlsProps): React.JSX.Element => {
 	const [isFullscreenMode, setFullscreenMode] = useState<boolean>(false);
 	const [isDisplayed, setDisplayed] = useState<boolean>(false);
@@ -85,7 +90,21 @@ const SlideControls = ({
 	}, [isFullscreenMode]);
 
 	return (
-		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} fixed bottom-0 left-0 gap-lg px-lg py-xs bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
+		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} items-center fixed bottom-0 left-0 gap-lg px-lg py-sm bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
+			{ slideAudio ?
+				<audio
+					controls
+					autoPlay
+				>
+					<source src={slideAudio.url} />
+				</audio>
+			:
+			<QsButton
+				onClick={() => onClickAudio()}
+			>
+				<SpeakerWaveIcon className="h-2xl w-2xl" />
+			</QsButton>
+			}
 			<QsButton
 				onClick={() => onClickLeft()}
 			>
@@ -99,7 +118,11 @@ const SlideControls = ({
 			<QsButton
 				onClick={() => isFullscreenMode ? exitFullscreen() : enterFullScreen()}
 			>
-				{isFullscreenMode ? <ArrowsPointingInIcon className="h-2xl w-2xl" /> : <ArrowsPointingOutIcon className="h-2xl w-2xl" />}
+				{isFullscreenMode ?
+				<ArrowsPointingInIcon className="h-2xl w-2xl" />
+				:
+				<ArrowsPointingOutIcon className="h-2xl w-2xl" />
+				}
 			</QsButton>
 		</div>
 	);

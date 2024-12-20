@@ -27,6 +27,13 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* audio player styling */
+audio {
+  filter: none;
+  height: 2.5rem;
+  border: none;
+}
+
 audio::-webkit-media-controls-panel {
-  background-color: var(--secondary-main);
+  border: none;
 }

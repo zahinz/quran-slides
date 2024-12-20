@@ -5,7 +5,6 @@ import { useVerses } from '../providers/VersesProvider';
 import { QuranVerse } from '../models';
 import { getQuranChapterTranslation, getQuranVerseRecitation, VERSES_AUDIO_URL } from '../services/api';
 import DOMPurify from 'dompurify';
-import QsButton from './QsButton';
 import SlideControls from './SlideControls';
 
 interface SlidesBoxProps {
@@ -18,7 +17,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	const { verses } = useVerses();
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
-	const [_, setDisplayedSlideIndex] = useState<number>(0);
+	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
 	const [loadingAudios, setLoadingAudios] = useState<number[]>([]);
 
 	const containerRef = useRef<HTMLDivElement | null>(null);
@@ -63,7 +62,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 		const res = await getQuranVerseRecitation(verseKey);
 		if (res) {
 			setFilteredVerses((prevFiltered) => {
-				prevFiltered[index].audio = res.audio_files[0];
+				prevFiltered[index].audio = { ...res.audio_files[0], url: `${VERSES_AUDIO_URL}/${res.audio_files[0].url}` };
 				return prevFiltered;
 			});
 		}
@@ -129,23 +128,6 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 							/>
 							<span>{` (${verse.verse_key})`}</span>
 						</div>
-						<div className="pt-4xl flex items-center justify-center">
-							{ verse.audio ?
-								<audio
-									controls
-									autoPlay
-								>
-									<source src={`${VERSES_AUDIO_URL}/${verse.audio.url}`} />
-								</audio>
-							:
-							<QsButton
-								isLoading={loadingAudios.includes(idx)}
-								onClick={() => fetchVerseAudio(verse.verse_key, idx)}
-							>
-								<span className="text-base">Recite</span>
-							</QsButton>
-							}
-						</div>
 					</div>
 				))}
 			</div>
@@ -154,6 +136,8 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				containerRef={containerRef}
 				onClickLeft={() => scrollSlide('left')}
 				onClickRight={() => scrollSlide('right')}
+				slideAudio={filteredVerses[displayedSlideIndex]?.audio}
+				onClickAudio={() => fetchVerseAudio(filteredVerses[displayedSlideIndex]?.verse_key, displayedSlideIndex)}
 			/>
 		</div>
 	);
