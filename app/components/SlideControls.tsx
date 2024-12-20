@@ -2,7 +2,9 @@
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import QsButton from './QsButton';
 import { RefObject, useEffect, useState } from 'react';
-import { Audio } from '../models';
+import { Audio, LanguageObj } from '../models';
+import QsListbox from './QsListbox';
+import { LANGUAGES } from '../services/lib';
 
 interface SlideControlsProps {
 	containerRef: RefObject<HTMLDivElement>;
@@ -11,6 +13,8 @@ interface SlideControlsProps {
 	slideAudio: Audio;
 	onClickAudio: () => void;
 	isLoadingAudio: boolean;
+	selectedLanguage: LanguageObj;
+	onChangeLanguage: (lng: LanguageObj) => void;
 }
 
 const SlideControls = ({
@@ -19,7 +23,9 @@ const SlideControls = ({
 	onClickRight,
 	slideAudio,
 	onClickAudio,
-	isLoadingAudio
+	isLoadingAudio,
+	selectedLanguage,
+	onChangeLanguage
 }: SlideControlsProps): React.JSX.Element => {
 	const [isFullscreenMode, setFullscreenMode] = useState<boolean>(false);
 	const [isDisplayed, setDisplayed] = useState<boolean>(false);
@@ -94,12 +100,12 @@ const SlideControls = ({
 	return (
 		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} items-center fixed bottom-0 left-0 gap-lg px-lg py-sm bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
 			{ slideAudio ?
-				<audio
-					controls
-					autoPlay
-				>
-					<source src={slideAudio.url} />
-				</audio>
+			<audio
+				controls
+				autoPlay
+			>
+				<source src={slideAudio.url} />
+			</audio>
 			:
 			<QsButton
 				isLoading={isLoadingAudio}
@@ -108,6 +114,16 @@ const SlideControls = ({
 				<SpeakerWaveIcon className="h-2xl w-2xl" />
 			</QsButton>
 			}
+			<QsListbox
+				items={LANGUAGES}
+				value={selectedLanguage}
+				renderValue={(value: LanguageObj) => value.language_name}
+				onChange={onChangeLanguage}
+				renderOptionItem={(item: LanguageObj) => item.language_name}
+				containerClassName="w-auto"
+				buttonClassName="py-xs dark:bg-primary-main data-[hover]:bg-primary-hover"
+				iconClassName="top-xs"
+			/>
 			<QsButton
 				onClick={() => onClickLeft()}
 			>

@@ -85,7 +85,7 @@ export interface Audio {
 };
 
 export interface Pagination {
-per_page: number;
+	per_page: number;
   current_page: number;
   next_page: number;
   total_pages: number;
@@ -100,3 +100,8 @@ interface Meta {
 
 export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
 export type Language = 'en' | 'ms';
+
+export interface LanguageObj {
+	code: Language;
+	language_name: string;
+}

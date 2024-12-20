@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useVerses } from '../providers/VersesProvider';
-import { QuranVerse } from '../models';
+import { Language, LanguageObj, QuranVerse } from '../models';
 import { getQuranChapterTranslation, getQuranVerseRecitation, VERSES_AUDIO_URL } from '../services/api';
 import DOMPurify from 'dompurify';
 import SlideControls from './SlideControls';
+import { LANGUAGES } from '../services/lib';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -19,6 +20,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
 	const [isLoadingAudio, setLoadingAudio] = useState<boolean>(false);
+	const [selectedLanguage, setSelectedLanguage] = useState<LanguageObj>(LANGUAGES[0]);
 
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);
@@ -44,8 +46,8 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chapterId, verseFrom, verseTo]);
 
-	const fetchVersesTranslation = async (chapterId: number, verseFrom: number, verseTo: number) => {
-		const res = await getQuranChapterTranslation(chapterId, 'ms');
+	const fetchVersesTranslation = async (chapterId: number, verseFrom: number, verseTo: number, language: Language) => {
+		const res = await getQuranChapterTranslation(chapterId, language);
 		if (res) {
 			const filteredTranslations = res.translations.slice(verseFrom - 1, verseTo);
 			setFilteredVerses((prevFiltered) => {
@@ -93,14 +95,19 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	}
 
 	useEffect(() => {
-		fetchVersesTranslation(chapterId, verseFrom, verseTo);
-
 		document.addEventListener('keydown', handleArrowKeysEvent);
 		return () => {
 			document.removeEventListener('keydown', handleArrowKeysEvent);
 		};
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (selectedLanguage) {
+			fetchVersesTranslation(chapterId, verseFrom, verseTo, selectedLanguage.code);			
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedLanguage]); 
 
 	return (
 		<div
@@ -134,6 +141,8 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				slideAudio={filteredVerses[displayedSlideIndex]?.audio}
 				onClickAudio={() => fetchVerseAudio(filteredVerses[displayedSlideIndex]?.verse_key, displayedSlideIndex)}
 				isLoadingAudio={isLoadingAudio}
+				selectedLanguage={selectedLanguage}
+				onChangeLanguage={(lng) => setSelectedLanguage(lng)}
 			/>
 		</div>
 	);

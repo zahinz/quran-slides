@@ -2,6 +2,7 @@
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { ClassNameValue, twMerge } from 'tailwind-merge';
 
 interface QsListboxProps {
 	value: any | null;
@@ -10,6 +11,9 @@ interface QsListboxProps {
 	items: any[];
 	renderOptionItem?: (item: any) => React.ReactNode;
 	label?: string;
+	containerClassName?: ClassNameValue;
+	buttonClassName?: ClassNameValue;
+	iconClassName?: ClassNameValue;
 };
 
 const QsListbox = ({
@@ -18,20 +22,23 @@ const QsListbox = ({
 	renderValue = (value) => value,
 	items,
 	renderOptionItem = (value) => value,
-	label
+	label,
+	containerClassName,
+	buttonClassName,
+	iconClassName
 }: QsListboxProps): React.JSX.Element => {
 	return (
-		<div className="w-full">
+		<div className={twMerge('w-full', containerClassName)}>
 			{label ? <div className="mb-xs">{label}</div> : null }
 			<Listbox
 				value={value}
 				onChange={onChange}
 			>
 				<ListboxButton
-					className="relative w-full rounded-lg border-none bg-white dark:bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-300 dark:data-[focus]:outline-gray-600"
+					className={twMerge('relative w-full rounded-lg border-none bg-white dark:bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-300 dark:data-[focus]:outline-gray-600', buttonClassName)}
 				>
 					{renderValue(value) || <span className="opacity-0">Placeholder</span>}
-					<ChevronDownIcon className="absolute top-lg right-lg h-2xl w-2xl" />
+					<ChevronDownIcon className={twMerge('absolute top-lg right-lg h-2xl w-2xl', iconClassName)} />
 				</ListboxButton>
 				<ListboxOptions
 					anchor={'bottom'}
