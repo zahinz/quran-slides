@@ -10,13 +10,11 @@ interface DisplaySlidesPageProps {
 
 const DisplaySlidesPage = async ({ searchParams }: DisplaySlidesPageProps): Promise<React.JSX.Element> => {
 	return (
-		<div className="flex flex-col items-center py-xl">
-      <SlidesBox
-				chapterId={Number(searchParams.chapter_id)}
-				verseFrom={Number(searchParams.verse_from)}
-				verseTo={Number(searchParams.verse_to)}
-			/>
-    </div>
+		<SlidesBox
+			chapterId={Number(searchParams.chapter_id)}
+			verseFrom={Number(searchParams.verse_from)}
+			verseTo={Number(searchParams.verse_to)}
+		/>
 	);
 }
 

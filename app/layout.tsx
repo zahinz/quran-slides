@@ -25,16 +25,20 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
     <html lang="en">
       <body className={`${poppins.variable}`}>
         <VersesProvider>
-          <main className="p-xl">
-            <Link href={'/'}>
-              <Image
-                src={QsLogo}
-                alt="QuranSlides"
-                width={350}
-                className="mx-auto rounded-md"
-              />
-            </Link>
-            {children}
+          <main className="p-xl h-screen flex flex-col">
+            <div className="flex justify-center flex-none">
+              <Link href={'/'} className="block w-[350px]">
+                <Image
+                  src={QsLogo}
+                  alt="QuranSlides"
+                  width={350}
+                  className="mx-auto rounded-md"
+                />
+              </Link>
+            </div>
+            <div className="flex-grow max-h-full overflow-auto scrollbar-hide">
+              {children}
+            </div>
           </main>
         </VersesProvider>
       </body>

@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useVerses } from '../providers/VersesProvider';
 import { QuranVerse } from '../models';
-import useEmblaCarousel from 'embla-carousel-react';
+import { Button } from '@headlessui/react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -14,7 +15,11 @@ interface SlidesBoxProps {
 const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX.Element => {
 	const { verses } = useVerses();
 
-	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]); 
+	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
+	const [_, setDisplayedSlideIndex] = useState<number>(0);
+	const [showNavButtons, setShowNavButtons] = useState<boolean>(false);
+
+	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);
 	
 	const filterVerses = (chapterId: number, verseFrom: number, verseTo: number) => {
 		if (verseFrom > verseTo) {
@@ -36,14 +41,69 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 		filterVerses(chapterId, verseFrom, verseTo);
 	}, [chapterId, verseFrom, verseTo]);
 
+	const scrollSlide = (direction: string) => {
+		setDisplayedSlideIndex((prevIndex) => {
+			const newSlide = direction === 'right' ? prevIndex + 1 : prevIndex - 1;
+			if (slideRefs.current[newSlide]) {
+				slideRefs.current[newSlide].scrollIntoView({ behavior: 'smooth' });
+				return newSlide;
+			}
+			return prevIndex;
+		});
+	}
+
+	const handleArrowKeysEvent = (e: KeyboardEvent) => {
+		e.preventDefault();
+		switch (e.key) {
+			case 'ArrowLeft':
+			case 'ArrowUp':
+				scrollSlide('left');
+				break;
+			case 'ArrowRight':
+			case 'ArrowDown':
+				scrollSlide('right');
+			default:
+				break;
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener('keydown', handleArrowKeysEvent);
+		return () => {
+			document.removeEventListener('keydown', handleArrowKeysEvent);
+		};
+	}, []);
+
 	return (
-		<div className="w-full overflow-auto">
+		<div
+			className="w-full overflow-hidden"
+			onMouseEnter={() => setShowNavButtons(true)}
+      onMouseLeave={() => setShowNavButtons(false)}
+		>
 			<div className="flex"> 
 				{filteredVerses.map((verse, idx) => (
-					<div key={idx} className="text-6xl flex-none w-full min-w-0 text-center p-6xl leading-loose">
+					<div
+						key={idx}
+						ref={(el) => (slideRefs.current[idx] = el)}
+						className="text-6xl flex-none w-full min-w-0 text-center p-6xl leading-loose"
+					>
 						{verse.text_uthmani} {`(${verse.verse_key})`}
 					</div>
 				))}
+			</div>
+			<div id={'buttons'} className={`${showNavButtons ? 'flex' : 'hidden'} fixed bottom-lg gap-lg px-lg py-xs bg-primary-main bg-opacity-30 left-1/2 transform -translate-x-1/2 rounded-md`}>
+				<Button
+					className="inline-flex rounded-md bg-primary-main px-lg py-xs text-center data-[hover]:bg-primary-hover data-[disabled]:opacity-30"
+					onClick={() => scrollSlide('left')}
+				>
+					<ChevronLeftIcon className="h-2xl w-2xl" />
+				</Button>
+				<Button
+					className="inline-flex rounded-md bg-primary-main px-lg py-xs text-center data-[hover]:bg-primary-hover data-[disabled]:opacity-30"
+					onClick={() => scrollSlide('right')}
+				>
+					<ChevronRightIcon className="h-2xl w-2xl" />
+				</Button>
 			</div>
 		</div>
 	);
