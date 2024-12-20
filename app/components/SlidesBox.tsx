@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useVerses } from '../providers/VersesProvider';
 import { QuranVerse } from '../models';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { getQuranChapterTranslation, getQuranVerseRecitation, VERSES_AUDIO_URL } from '../services/api';
 import DOMPurify from 'dompurify';
 import QsButton from './QsButton';
+import SlideControls from './SlideControls';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -19,9 +19,9 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [_, setDisplayedSlideIndex] = useState<number>(0);
-	const [showNavButtons, setShowNavButtons] = useState<boolean>(false);
 	const [loadingAudios, setLoadingAudios] = useState<number[]>([]);
 
+	const containerRef = useRef<HTMLDivElement | null>(null);
 	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);
 	
 	const filterVerses = (chapterId: number, verseFrom: number, verseTo: number) => {
@@ -42,6 +42,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	useEffect(() => {
 		filterVerses(chapterId, verseFrom, verseTo);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chapterId, verseFrom, verseTo]);
 
 	const fetchVersesTranslation = async (chapterId: number, verseFrom: number, verseTo: number) => {
@@ -104,13 +105,13 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 		return () => {
 			document.removeEventListener('keydown', handleArrowKeysEvent);
 		};
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<div
-			className="w-full h-full overflow-auto scrollbar-hide"
-			onMouseEnter={() => setShowNavButtons(true)}
-      onMouseLeave={() => setShowNavButtons(false)}
+			ref={containerRef}
+			className="w-full h-full overflow-auto scrollbar-hide bg-background"
 		>
 			<div className="flex items-start sm:overflow-hidden"> 
 				{filteredVerses.map((verse, idx) => (
@@ -148,19 +149,12 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 					</div>
 				))}
 			</div>
-			
-			<div className={`${showNavButtons ? 'flex' : 'flex sm:hidden'} fixed bottom-0 left-0 gap-lg px-lg py-xs bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
-				<QsButton
-					onClick={() => scrollSlide('left')}
-				>
-					<ChevronLeftIcon className="h-2xl w-2xl" />
-				</QsButton>
-				<QsButton
-					onClick={() => scrollSlide('right')}
-				>
-					<ChevronRightIcon className="h-2xl w-2xl" />
-				</QsButton>
-			</div>
+
+			<SlideControls
+				containerRef={containerRef}
+				onClickLeft={() => scrollSlide('left')}
+				onClickRight={() => scrollSlide('right')}
+			/>
 		</div>
 	);
 }
