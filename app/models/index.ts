@@ -18,11 +18,26 @@ export interface QuranChapter {
 export interface GetQuranVersesResponse {
 	verses: QuranVerse[];
 	pagination: Pagination;
-}
+};
 
 export interface GetQuranVerseByKeyResponse {
 	verse: QuranVerse;
-}
+};
+
+export interface GetQuranTranslationResponse {
+	translations: Translation[];
+	meta: Meta;
+};
+
+export interface GetQuranVersesByTypeResponse {
+	verses: QuranVerse[];
+	meta: Meta;
+};
+
+export interface GetQuranVerseRecitationResponse {
+	audio_files: Audio[];
+	pagination: Pagination;
+};
 
 export interface QuranVerse {
 	id: number;
@@ -45,6 +60,8 @@ export interface QuranVerse {
 	image_url: string;
 	image_width: number;
 	words: QuranWord[];
+	translation: Translation;
+	audio: Audio;
 };
 
 export interface QuranWord {
@@ -59,21 +76,26 @@ export interface QuranWord {
 export interface Translation {
 	text: string;
 	language_name: string;
+	resource_id: number;
+};
+
+export interface Audio {
+	verse_key: string;
+	url: string;
 };
 
 export interface Pagination {
-	per_page: number;
+per_page: number;
   current_page: number;
   next_page: number;
   total_pages: number;
   total_records: number;
-}
+};
 
-export interface GetQuranVersesByTypeResponse {
-	verses: QuranVerse[];
-	meta: {
-		filters: any;
-	}
+interface Meta {
+	filters: any;
+	translation_name: string;
+  author_name: string;
 };
 
 export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';

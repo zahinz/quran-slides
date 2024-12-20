@@ -1,6 +1,9 @@
-import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, VerseType } from '../../models';
+import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, VerseType, GetQuranVerseRecitationResponse } from '../../models';
 
 const BASE_URL = 'https://api.quran.com/api/v4';
+const TRANSLATIONS_RESOURCE_ID = 131;
+const RECITATION_ID = 2;
+export const VERSES_AUDIO_URL = 'https://verses.quran.com';
 
 export const getQuranVersesByType = async (type: VerseType): Promise<GetQuranVersesByTypeResponse | null> => {
 	try {
@@ -49,3 +52,51 @@ export const getQuranVerseByKey = async (chapterId: number, verseId: number = 1)
 		throw e;
 	}
 };
+
+export const getQuranVerseTranslation = async (verseKey: string): Promise<GetQuranTranslationResponse | null> => {
+	try {
+		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID}?verse_key=${verseKey}`);
+
+		if (!response.ok) {
+			return null;
+		}
+
+		const responseJson = await response.json();
+		return responseJson;
+
+	} catch (e) {
+		throw e;
+	}
+}
+
+export const getQuranChapterTranslation = async (chapterId: number): Promise<GetQuranTranslationResponse | null> => {
+	try {
+		const response = await fetch(`${BASE_URL}/quran/translations/${TRANSLATIONS_RESOURCE_ID}?chapter_number=${chapterId}`);
+
+		if (!response.ok) {
+			return null;
+		}
+
+		const responseJson = await response.json();
+		return responseJson;
+
+	} catch (e) {
+		throw e;
+	}
+}
+
+export const getQuranVerseRecitation = async (verseKey: string): Promise<GetQuranVerseRecitationResponse | null> => {
+	try {
+		const response = await fetch(`${BASE_URL}/recitations/${RECITATION_ID}/by_ayah/${verseKey}`);
+
+		if (!response.ok) {
+			return null;
+		}
+
+		const responseJson = await response.json();
+		return responseJson;
+
+	} catch (e) {
+		throw e;
+	}
+}

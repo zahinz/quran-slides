@@ -6,6 +6,7 @@ import { QuranChapter } from '../models';
 import QsListbox from './QsListbox';
 import { Button } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
+import QsButton from './QsButton';
 
 const GenerateSlideForm = (): React.JSX.Element => {
 	const [selectedChapter, setSelectedChapter] = useState<QuranChapter | null>(null);
@@ -73,13 +74,13 @@ const GenerateSlideForm = (): React.JSX.Element => {
 						renderValue={(value) => value > 0 ? value : ''}
 					/>
 				</div>
-				<Button
-					className="mt-lg w-full inline-flex rounded-md bg-primary-main p-lg text-center data-[hover]:bg-primary-hover data-[disabled]:opacity-30"
+				<QsButton
+					className="mt-lg w-full"
 					disabled={!fromVerse || !toVerse}
 					onClick={() => generateSlides()}
 				>
 					<span className="text-center w-full">Generate</span>
-				</Button>
+				</QsButton>
 			</>
 			: null }
 		</div>
