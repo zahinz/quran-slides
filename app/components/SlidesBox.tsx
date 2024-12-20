@@ -18,7 +18,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
-	const [loadingAudios, setLoadingAudios] = useState<number[]>([]);
+	const [isLoadingAudio, setLoadingAudio] = useState<boolean>(false);
 
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);
@@ -55,10 +55,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	}
 
 	const fetchVerseAudio = async (verseKey: string, index: number) => {
-		setLoadingAudios((prevAudios) => {
-			prevAudios.push(index);
-			return prevAudios;
-		});
+		setLoadingAudio(true);
 		const res = await getQuranVerseRecitation(verseKey);
 		if (res) {
 			setFilteredVerses((prevFiltered) => {
@@ -66,9 +63,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				return prevFiltered;
 			});
 		}
-		setLoadingAudios((prevAudios) => {
-			return prevAudios.filter(k => k !== index);
-		});
+		setLoadingAudio(false);
 	}
 
 	const scrollSlide = (direction: string) => {
@@ -138,6 +133,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				onClickRight={() => scrollSlide('right')}
 				slideAudio={filteredVerses[displayedSlideIndex]?.audio}
 				onClickAudio={() => fetchVerseAudio(filteredVerses[displayedSlideIndex]?.verse_key, displayedSlideIndex)}
+				isLoadingAudio={isLoadingAudio}
 			/>
 		</div>
 	);

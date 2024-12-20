@@ -10,6 +10,7 @@ interface SlideControlsProps {
 	onClickRight: () => void;
 	slideAudio: Audio;
 	onClickAudio: () => void;
+	isLoadingAudio: boolean;
 }
 
 const SlideControls = ({
@@ -17,7 +18,8 @@ const SlideControls = ({
 	onClickLeft,
 	onClickRight,
 	slideAudio,
-	onClickAudio
+	onClickAudio,
+	isLoadingAudio
 }: SlideControlsProps): React.JSX.Element => {
 	const [isFullscreenMode, setFullscreenMode] = useState<boolean>(false);
 	const [isDisplayed, setDisplayed] = useState<boolean>(false);
@@ -100,6 +102,7 @@ const SlideControls = ({
 				</audio>
 			:
 			<QsButton
+				isLoading={isLoadingAudio}
 				onClick={() => onClickAudio()}
 			>
 				<SpeakerWaveIcon className="h-2xl w-2xl" />
