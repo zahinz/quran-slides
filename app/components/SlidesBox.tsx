@@ -20,6 +20,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [_, setDisplayedSlideIndex] = useState<number>(0);
 	const [showNavButtons, setShowNavButtons] = useState<boolean>(false);
+	const [loadingAudios, setLoadingAudios] = useState<number[]>([]);
 
 	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);
 	
@@ -54,6 +55,10 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 	}
 
 	const fetchVerseAudio = async (verseKey: string, index: number) => {
+		setLoadingAudios((prevAudios) => {
+			prevAudios.push(index);
+			return prevAudios;
+		});
 		const res = await getQuranVerseRecitation(verseKey);
 		if (res) {
 			setFilteredVerses((prevFiltered) => {
@@ -61,6 +66,9 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				return prevFiltered;
 			});
 		}
+		setLoadingAudios((prevAudios) => {
+			return prevAudios.filter(k => k !== index);
+		});
 	}
 
 	const scrollSlide = (direction: string) => {
@@ -100,16 +108,16 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	return (
 		<div
-			className="w-full overflow-hidden"
+			className="w-full h-full overflow-auto scrollbar-hide"
 			onMouseEnter={() => setShowNavButtons(true)}
       onMouseLeave={() => setShowNavButtons(false)}
 		>
-			<div className="flex items-start"> 
+			<div className="flex items-start sm:overflow-hidden"> 
 				{filteredVerses.map((verse, idx) => (
 					<div
 						key={idx}
 						ref={(el) => (slideRefs.current[idx] = el)}
-						className="text-6xl flex-none w-full min-w-0 text-center p-6xl leading-loose"
+						className="text-3xl sm:text-6xl flex-none w-full min-w-0 text-center p-2xl sm:p-6xl leading-loose sm:leading-loose"
 					>
 						<div>{verse.text_uthmani} {`(${verse.verse_key})`}</div>
 						<div className="text-2xl leading-normal pt-2xl">
@@ -122,11 +130,15 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 						</div>
 						<div className="pt-4xl flex items-center justify-center">
 							{ verse.audio ?
-								<audio controls>
+								<audio
+									controls
+									autoPlay
+								>
 									<source src={`${VERSES_AUDIO_URL}/${verse.audio.url}`} />
 								</audio>
 							:
 							<QsButton
+								isLoading={loadingAudios.includes(idx)}
 								onClick={() => fetchVerseAudio(verse.verse_key, idx)}
 							>
 								<span className="text-base">Recite</span>
@@ -137,7 +149,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 				))}
 			</div>
 			
-			<div id={'buttons'} className={`${showNavButtons ? 'flex' : 'hidden'} fixed bottom-lg gap-lg px-lg py-xs bg-primary-main bg-opacity-30 left-1/2 transform -translate-x-1/2 rounded-md`}>
+			<div className={`${showNavButtons ? 'flex' : 'flex sm:hidden'} fixed bottom-0 left-0 gap-lg px-lg py-xs bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
 				<QsButton
 					onClick={() => scrollSlide('left')}
 				>

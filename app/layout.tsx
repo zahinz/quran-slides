@@ -25,7 +25,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
     <html lang="en">
       <body className={`${poppins.variable}`}>
         <VersesProvider>
-          <main className="p-xl h-screen flex flex-col">
+          <main className="p-xl pb-0 h-screen flex flex-col">
             <div className="flex justify-center flex-none">
               <Link href={'/'} className="block w-[350px]">
                 <Image

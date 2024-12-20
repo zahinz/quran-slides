@@ -58,7 +58,7 @@ const GenerateSlideForm = (): React.JSX.Element => {
 			/>
 			{ selectedChapter ?
 			<>
-				<div className="flex py-lg gap-lg">
+				<div className="flex flex-col sm:flex-row py-lg gap-lg">
 					<QsListbox
 						label={'From verse:'}
 						items={fromVersesList}
