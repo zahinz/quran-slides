@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import SelectChapter from './SelectChapter';
 import { QuranChapter } from '../models';
 import QsListbox from './QsListbox';
-import { Button } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import QsButton from './QsButton';
 
@@ -21,7 +20,8 @@ const GenerateSlideForm = (): React.JSX.Element => {
    	return Array.from({ length: n2 - n1 + 1 }, (_, i) => n1 + i);
 	};
 
-	const generateSlides = () => {		
+	const generateSlides = (e: FormEvent) => {	
+		e.preventDefault();
 		if (selectedChapter) {
 			router.push(`display-slides?chapter_id=${selectedChapter.id}&verse_from=${fromVerse}&verse_to=${toVerse}`);
 		}
@@ -51,7 +51,10 @@ const GenerateSlideForm = (): React.JSX.Element => {
 	}, [toVerse]);
 
 	return (
-		<div className="w-full md:w-[50vw] py-3xl">
+		<form 
+			onSubmit={(e: FormEvent) => generateSlides(e)}
+			className="w-full md:w-[50vw] py-3xl"
+		>
 			<SelectChapter
 				selectedChapter={selectedChapter}
 				setSelectedChapter={setSelectedChapter}
@@ -75,15 +78,15 @@ const GenerateSlideForm = (): React.JSX.Element => {
 					/>
 				</div>
 				<QsButton
+					type={'submit'}
 					className="mt-lg w-full"
 					disabled={!fromVerse || !toVerse}
-					onClick={() => generateSlides()}
 				>
 					<span className="text-center w-full">Generate</span>
 				</QsButton>
 			</>
 			: null }
-		</div>
+		</form>
 	);
 };
 

@@ -38,7 +38,7 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
 		>
 			<div className="relative">
 				<ComboboxInput
-					className="w-full rounded-lg border-none bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-600"
+					className="w-full rounded-lg border-none bg-white dark:bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-300 dark:data-[focus]:outline-gray-600"
 					displayValue={(chapter: QuranChapter) => chapter ? `${chapter.name_simple} (${chapter.name_arabic})` : ''}
 					onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
 					placeholder={'Search chapter (surah) here'}
@@ -50,13 +50,13 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
       <ComboboxOptions
 				anchor={'bottom'}
 				transition
-				className="w-[var(--input-width)] rounded-xl border bg-gray-800 border-gray-800 [--anchor-gap:var(--spacing-1)] empty:invisible transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
+				className="w-[var(--input-width)] rounded-xl border bg-white dark:bg-gray-800 border-white dark:border-gray-800 [--anchor-gap:var(--spacing-1)] empty:invisible transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
 			>
         {filteredChapters.map((chapter) => (
           <ComboboxOption
 						key={chapter.id}
 						value={chapter}
-						className="group flex items-center p-lg select-none data-[focus]:bg-gray-900 cursor-pointer"
+						className="group flex items-center p-lg select-none data-[focus]:bg-gray-300 dark:data-[focus]:bg-gray-900 cursor-pointer"
 					>
 						<CheckCircleIcon className="invisible group-data-[selected]:visible h-2xl w-2xl mr-lg text-green-400" />
             <div>{`${chapter.name_simple} (${chapter.name_arabic})`}</div>

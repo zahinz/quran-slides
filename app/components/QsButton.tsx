@@ -6,7 +6,7 @@ interface QsButtonProps extends ButtonProps {
 }
 
 const QsButton = ({ children, onClick, className, isLoading, disabled }: QsButtonProps) => {
-  const baseClasses = 'inline-flex rounded-md bg-primary-main px-lg py-xs text-center data-[hover]:bg-primary-hover data-[disabled]:opacity-30';
+  const baseClasses = 'inline-flex rounded-md bg-primary-main px-lg py-xs text-center text-white data-[hover]:bg-primary-hover data-[disabled]:opacity-30';
 
   return (
 		<Button
