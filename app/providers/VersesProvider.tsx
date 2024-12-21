@@ -23,22 +23,16 @@ export const useVerses = (): VersesState => {
 };
 
 const VersesProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setLoading] = useState<boolean>(true);
   const [verses, setVerses] = useState<QuranVerse[]>([]);
 
 	const fetchVerses = async () => {
 		const res = await getQuranVersesByType('uthmani');    
 		setVerses(res?.verses || []);
-    setLoading(false);
 	};
 	
 	useEffect(() => {
 		fetchVerses();
 	}, []);
-
-  if (isLoading) {
-		return <div>Loading...</div>
-	}
 
   return (
     <VersesContext.Provider

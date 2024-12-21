@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   }
 };
 
+export const dynamic = 'force-dynamic';
+
 const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
   return (
     <html lang="en">
