@@ -119,7 +119,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 					<div
 						key={idx}
 						ref={(el) => (slideRefs.current[idx] = el)}
-						className="text-3xl sm:text-6xl flex-none w-full min-w-0 text-center p-2xl sm:p-6xl leading-loose sm:leading-loose"
+						className="text-3xl sm:text-6xl flex-none w-full min-w-0 text-center px-2xl pt-2xl pb-10xl sm:p-6xl leading-loose sm:leading-loose"
 					>
 						<div>{verse.text_uthmani} {`(${verse.verse_key})`}</div>
 						<div className="text-2xl leading-normal pt-2xl">

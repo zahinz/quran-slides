@@ -29,7 +29,9 @@ const config: Config = {
         '2xl': '1.5rem',
         '3xl': '2rem',
         '4xl': '3rem',
-        '6xl': '5rem'
+        '6xl': '5rem',
+        '8xl': '7.5rem',
+        '10xl': '9rem'
       },
     },
   },

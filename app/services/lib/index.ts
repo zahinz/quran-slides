@@ -6,31 +6,31 @@ export const VERSES_AUDIO_URL = 'https://verses.quran.com';
 
 export const LANGUAGES_OBJ: LanguageObj = {
 	en: {
-		language_name: 'English',
+		language_name: 'English 🇬🇧',
 		resource_id: 131
 	},
 	ms: {
-		language_name: 'Malay',
+		language_name: 'Malay 🇲🇾',
 		resource_id: 39
 	},
 	id: {
-		language_name: 'Indonesian',
+		language_name: 'Indonesian 🇮🇩',
 		resource_id: 33
 	},
 	fr: {
-		language_name: 'French',
+		language_name: 'French 🇫🇷',
 		resource_id: 136
 	},
 	es: {
-		language_name: 'Spanish',
+		language_name: 'Spanish 🇪🇸',
 		resource_id: 140
 	},
 	ko: {
-		language_name: 'Korean',
+		language_name: 'Korean 🇰🇷',
 		resource_id: 36
 	},
 	tr: {
-		language_name: 'Turkish',
+		language_name: 'Turkish 🇹🇷',
 		resource_id: 77
 	}
 }

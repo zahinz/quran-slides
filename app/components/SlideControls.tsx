@@ -98,51 +98,55 @@ const SlideControls = ({
 	}, [isFullscreenMode]);
 
 	return (
-		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} items-center fixed bottom-0 left-0 gap-lg px-lg py-sm bg-primary-main bg-opacity-30 rounded-md w-full justify-end`}>
-			{ slideAudio ?
-			<audio
-				controls
-				autoPlay
-			>
-				<source src={slideAudio.url} />
-			</audio>
-			:
-			<QsButton
-				isLoading={isLoadingAudio}
-				onClick={() => onClickAudio()}
-			>
-				<SpeakerWaveIcon className="h-2xl w-2xl" />
-			</QsButton>
-			}
-			<QsListbox
-				items={LANGUAGES_LIST}
-				value={selectedLanguage}
-				renderValue={(value: LanguageItem) => value.language_name}
-				onChange={onChangeLanguage}
-				renderOptionItem={(item: LanguageItem) => item.language_name}
-				containerClassName="w-auto"
-				buttonClassName="py-xs dark:bg-primary-main data-[hover]:bg-primary-hover"
-				iconClassName="top-xs"
-			/>
-			<QsButton
-				onClick={() => onClickLeft()}
-			>
-				<ChevronLeftIcon className="h-2xl w-2xl" />
-			</QsButton>
-			<QsButton
-				onClick={() => onClickRight()}
-			>
-				<ChevronRightIcon className="h-2xl w-2xl" />
-			</QsButton>
-			<QsButton
-				onClick={() => isFullscreenMode ? exitFullscreen() : enterFullScreen()}
-			>
-				{isFullscreenMode ?
-				<ArrowsPointingInIcon className="h-2xl w-2xl" />
+		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} items-center fixed bottom-0 left-0 py-sm px-lg bg-primary-main bg-opacity-30 rounded-md w-full justify-end flex-col sm:flex-row gap-lg`}>
+			<div className="flex items-center gap-lg">
+				{ slideAudio ?
+				<audio
+					controls
+					autoPlay
+				>
+					<source src={slideAudio.url} />
+				</audio>
 				:
-				<ArrowsPointingOutIcon className="h-2xl w-2xl" />
+				<QsButton
+					isLoading={isLoadingAudio}
+					onClick={() => onClickAudio()}
+				>
+					<SpeakerWaveIcon className="h-2xl w-2xl" />
+				</QsButton>
 				}
-			</QsButton>
+				<QsListbox
+					items={LANGUAGES_LIST}
+					value={selectedLanguage}
+					renderValue={(value: LanguageItem) => value.language_name}
+					onChange={onChangeLanguage}
+					renderOptionItem={(item: LanguageItem) => item.language_name}
+					containerClassName="w-auto"
+					buttonClassName="py-xs dark:bg-primary-main data-[hover]:bg-primary-hover w-[180px]"
+					iconClassName="top-xs"
+				/>
+			</div>
+			<div className="flex items-center gap-lg">
+				<QsButton
+					onClick={() => onClickLeft()}
+				>
+					<ChevronLeftIcon className="h-2xl w-2xl" />
+				</QsButton>
+				<QsButton
+					onClick={() => onClickRight()}
+				>
+					<ChevronRightIcon className="h-2xl w-2xl" />
+				</QsButton>
+				<QsButton
+					onClick={() => isFullscreenMode ? exitFullscreen() : enterFullScreen()}
+				>
+					{isFullscreenMode ?
+					<ArrowsPointingInIcon className="h-2xl w-2xl" />
+					:
+					<ArrowsPointingOutIcon className="h-2xl w-2xl" />
+					}
+				</QsButton>
+			</div>
 		</div>
 	);
 };
