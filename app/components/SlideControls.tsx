@@ -2,9 +2,9 @@
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import QsButton from './QsButton';
 import { RefObject, useEffect, useState } from 'react';
-import { Audio, LanguageObj } from '../models';
+import { Audio, LanguageItem } from '../models';
 import QsListbox from './QsListbox';
-import { LANGUAGES } from '../services/lib';
+import { LANGUAGES_LIST } from '../services/lib';
 
 interface SlideControlsProps {
 	containerRef: RefObject<HTMLDivElement>;
@@ -13,8 +13,8 @@ interface SlideControlsProps {
 	slideAudio: Audio;
 	onClickAudio: () => void;
 	isLoadingAudio: boolean;
-	selectedLanguage: LanguageObj;
-	onChangeLanguage: (lng: LanguageObj) => void;
+	selectedLanguage: LanguageItem;
+	onChangeLanguage: (lng: LanguageItem) => void;
 }
 
 const SlideControls = ({
@@ -115,11 +115,11 @@ const SlideControls = ({
 			</QsButton>
 			}
 			<QsListbox
-				items={LANGUAGES}
+				items={LANGUAGES_LIST}
 				value={selectedLanguage}
-				renderValue={(value: LanguageObj) => value.language_name}
+				renderValue={(value: LanguageItem) => value.language_name}
 				onChange={onChangeLanguage}
-				renderOptionItem={(item: LanguageObj) => item.language_name}
+				renderOptionItem={(item: LanguageItem) => item.language_name}
 				containerClassName="w-auto"
 				buttonClassName="py-xs dark:bg-primary-main data-[hover]:bg-primary-hover"
 				iconClassName="top-xs"

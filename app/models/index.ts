@@ -99,9 +99,16 @@ interface Meta {
 };
 
 export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
+
 export type Language = 'en' | 'ms';
 
-export interface LanguageObj {
-	code: Language;
-	language_name: string;
-}
+type LanguageDetails = {
+  resource_id: number;
+  language_name: string;
+};
+
+export type LanguageObj = Record<Language, LanguageDetails>;
+
+export interface LanguageItem extends LanguageDetails {
+	code: Language
+};
