@@ -100,7 +100,7 @@ interface Meta {
 
 export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
 
-export type Language = 'en' | 'ms';
+export type Language = 'en' | 'ms' | 'fr' | 'es' | 'id';
 
 type LanguageDetails = {
   resource_id: number;
@@ -110,5 +110,5 @@ type LanguageDetails = {
 export type LanguageObj = Record<Language, LanguageDetails>;
 
 export interface LanguageItem extends LanguageDetails {
-	code: Language
+	iso_code: Language
 };

@@ -104,7 +104,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	useEffect(() => {
 		if (selectedLanguage) {			
-			fetchVersesTranslation(chapterId, verseFrom, verseTo, selectedLanguage.code);			
+			fetchVersesTranslation(chapterId, verseFrom, verseTo, selectedLanguage.iso_code);			
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedLanguage]); 

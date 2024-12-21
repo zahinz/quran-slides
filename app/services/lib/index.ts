@@ -12,10 +12,22 @@ export const LANGUAGES_OBJ: LanguageObj = {
 	ms: {
 		language_name: 'Malay',
 		resource_id: 39
+	},
+	id: {
+		language_name: 'Indonesian',
+		resource_id: 33
+	},
+	fr: {
+		language_name: 'French',
+		resource_id: 136
+	},
+	es: {
+		language_name: 'Spanish',
+		resource_id: 140
 	}
 }
 
 export const LANGUAGES_LIST: LanguageItem[] = Object.entries(LANGUAGES_OBJ).map(([code, details]) => ({
-	code: code as Language,
+	iso_code: code as Language,
 	...details,
 }));
