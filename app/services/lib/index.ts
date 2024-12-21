@@ -24,6 +24,14 @@ export const LANGUAGES_OBJ: LanguageObj = {
 	es: {
 		language_name: 'Spanish',
 		resource_id: 140
+	},
+	ko: {
+		language_name: 'Korean',
+		resource_id: 36
+	},
+	tr: {
+		language_name: 'Turkish',
+		resource_id: 77
 	}
 }
 
