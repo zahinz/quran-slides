@@ -18,7 +18,7 @@ interface SlidesBoxProps {
 
 const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX.Element => {
 	const { verses } = useVerses();
-	const { selectedScript } = useSettings();	
+	const { selectedScript, selectedRecitation } = useSettings();	
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
@@ -61,7 +61,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 
 	const fetchVerseAudio = async (verseKey: string, index: number) => {
 		setLoadingAudio(true);
-		const res = await getQuranVerseRecitation(verseKey);
+		const res = await getQuranVerseRecitation(selectedRecitation.id, verseKey);
 		if (res) {
 			setFilteredVerses((prevFiltered) => {
 				prevFiltered[index].audio = { ...res.audio_files[0], url: `${VERSES_AUDIO_URL}/${res.audio_files[0].url}` };

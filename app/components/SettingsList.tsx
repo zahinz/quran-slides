@@ -1,19 +1,19 @@
 'use client';
 
 import { FormEvent } from 'react';
-import { ScriptItem } from '../models';
+import { Recitation, ScriptItem } from '../models';
 import { useSettings } from '../providers/client/SettingsCtxProvider';
-import { SCRIPTS_LIST } from '../services/lib';
+import { RECITATIONS_LIST, SCRIPTS_LIST } from '../services/lib';
 import QsButton from './QsButton';
 import QsListbox from './QsListbox';
 
 const SettingsList = () => {
-  const { selectedScript, setSelectedScript } = useSettings();
+  const { selectedScript, setSelectedScript, selectedRecitation, setSelectedRecitation } = useSettings();
 
   const saveSettings = (e: FormEvent) => {
     e.preventDefault();
 
-    document.cookie = `settings={"script": "${selectedScript?.code}"}; path=/`;
+    document.cookie = `settings={"script":"${selectedScript.code}","recitation":"${selectedRecitation.id}"}; path=/`;
 
     window.location.assign('/');
   }
@@ -30,6 +30,14 @@ const SettingsList = () => {
         onChange={setSelectedScript}
         renderValue={(value: ScriptItem) => value.script_name}
         renderOptionItem={(item: ScriptItem) => item.script_name}
+      />
+      <QsListbox
+        label={'Recitation audio'}
+        items={RECITATIONS_LIST}
+        value={selectedRecitation}
+        onChange={setSelectedRecitation}
+        renderValue={(value: Recitation) => `${value.reciter_name}${value.style ? ` (${value.style})`: ''}`}
+        renderOptionItem={(item: Recitation) => `${item.reciter_name}${item.style ? ` (${item.style})`: ''}`}
       />
       <QsButton
         type={'submit'}

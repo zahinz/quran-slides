@@ -1,5 +1,5 @@
-import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, Script, GetQuranVerseRecitationResponse, Language } from '../../models';
-import { BASE_URL, LANGUAGES_OBJ, RECITATION_ID } from '../lib';
+import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, Script, GetQuranVerseRecitationResponse, Language, GetQuranRecitationsResponse } from '../../models';
+import { BASE_URL, LANGUAGES_OBJ } from '../lib';
 
 export const getQuranVersesByType = async (type: Script): Promise<GetQuranVersesByTypeResponse | null> => {
 	try {
@@ -81,9 +81,25 @@ export const getQuranChapterTranslation = async (chapterId: number, language: La
 	}
 }
 
-export const getQuranVerseRecitation = async (verseKey: string): Promise<GetQuranVerseRecitationResponse | null> => {
+export const getQuranRecitations = async (): Promise<GetQuranRecitationsResponse | null> => {
 	try {
-		const response = await fetch(`${BASE_URL}/recitations/${RECITATION_ID}/by_ayah/${verseKey}`);
+		const response = await fetch(`${BASE_URL}/resources/recitations`);
+
+		if (!response.ok) {
+			return null;
+		}
+
+		const responseJson = await response.json();
+		return responseJson;
+
+	} catch (e) {
+		throw e;
+	}
+}
+
+export const getQuranVerseRecitation = async (recitationId: number, verseKey: string): Promise<GetQuranVerseRecitationResponse | null> => {
+	try {
+		const response = await fetch(`${BASE_URL}/recitations/${recitationId}/by_ayah/${verseKey}`);
 
 		if (!response.ok) {
 			return null;

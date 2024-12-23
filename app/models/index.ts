@@ -34,6 +34,10 @@ export interface GetQuranVersesByTypeResponse {
 	meta: Meta;
 };
 
+export interface GetQuranRecitationsResponse {
+	recitations: Recitation[];
+}
+
 export interface GetQuranVerseRecitationResponse {
 	audio_files: Audio[];
 	pagination: Pagination;
@@ -119,6 +123,17 @@ export interface LanguageItem extends LanguageDetails {
 	iso_code: Language
 };
 
+export interface Recitation {
+	id: number;
+	reciter_name: string;
+	style?: string;
+	translated_name: {
+		name: string;
+		language_name: string;
+	}
+};
+
 export interface SettingsObj {
 	script: Script;
+	recitation: number;
 }
