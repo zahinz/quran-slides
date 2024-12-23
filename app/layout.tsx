@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import QsLogo from '../public/assets/logo.png';
 import { Poppins } from 'next/font/google';
-import VersesProvider from './providers/VersesProvider';
+import { VersesProvider } from './providers';
 
 const poppins = Poppins({
   subsets: ['latin'],

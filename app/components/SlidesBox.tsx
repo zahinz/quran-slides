@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useVerses } from '../providers/VersesProvider';
+import { useVerses } from '../providers/VersesCtxProvider';
 import { Language, LanguageItem, QuranVerse } from '../models';
 import { getQuranChapterTranslation, getQuranVerseRecitation } from '../services/api';
 import DOMPurify from 'dompurify';
