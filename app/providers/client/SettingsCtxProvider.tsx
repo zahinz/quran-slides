@@ -38,8 +38,8 @@ const SettingsCtxProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const settings = getCookie('settings');    
     const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null;
-    const scriptObj = SCRIPTS_LIST.find((s) => s.code === settingsObj.script);
-    const recitationObj = RECITATIONS_LIST.find((r) => r.id === Number(settingsObj.recitation));
+    const scriptObj = SCRIPTS_LIST.find((s) => s.code === settingsObj?.script);
+    const recitationObj = RECITATIONS_LIST.find((r) => r.id === Number(settingsObj?.recitation));
 
     if (scriptObj) setSelectedScript(scriptObj);
     if (recitationObj) setSelectedRecitation(recitationObj);

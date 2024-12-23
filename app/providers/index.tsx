@@ -18,7 +18,7 @@ export const VersesProvider = async ({ children }: PropsWithChildren) => {
   const settings = cookieStore.get('settings')?.value || '';
   const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null; 
 
-  const verses: QuranVerse[] = await fetchVerses(settingsObj.script);  
+  const verses: QuranVerse[] = await fetchVerses(settingsObj?.script || 'uthmani');  
 
   return (
     <VersesCtxProvider verses={verses}>
