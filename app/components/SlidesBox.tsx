@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useVerses } from '../providers/client/VersesCtxProvider';
-import { Language, LanguageItem, QuranVerse } from '../models';
+import { Language, LanguageItem, QuranVerse } from '../services/models';
 import { getQuranChapterTranslation, getQuranVerseRecitation } from '../services/api';
 import DOMPurify from 'dompurify';
 import SlideControls from './SlideControls';

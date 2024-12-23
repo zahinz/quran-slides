@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import SelectChapter from './SelectChapter';
-import { QuranChapter } from '../models';
+import { QuranChapter } from '../services/models';
 import QsListbox from './QsListbox';
 import { useRouter } from 'next/navigation';
 import QsButton from './QsButton';

@@ -2,7 +2,7 @@
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import QsButton from './QsButton';
 import { RefObject, useEffect, useState } from 'react';
-import { Audio, LanguageItem } from '../models';
+import { Audio, LanguageItem } from '../services/models';
 import QsListbox from './QsListbox';
 import { LANGUAGES_LIST } from '../services/lib';
 

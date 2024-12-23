@@ -1,4 +1,4 @@
-import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, Script, GetQuranVerseRecitationResponse, Language, GetQuranRecitationsResponse } from '../../models';
+import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, Script, GetQuranVerseRecitationResponse, Language, GetQuranRecitationsResponse } from '../../services/models';
 import { BASE_URL, LANGUAGES_OBJ } from '../lib';
 
 export const getQuranVersesByType = async (type: Script): Promise<GetQuranVersesByTypeResponse | null> => {

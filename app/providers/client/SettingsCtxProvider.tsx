@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { Recitation, ScriptItem, SettingsObj } from '../../models';
+import { Recitation, ScriptItem, SettingsObj } from '../../services/models';
 import { RECITATIONS_LIST, SCRIPTS_LIST } from '../../services/lib';
 import { getCookie } from '../../services/lib/helpers';
 

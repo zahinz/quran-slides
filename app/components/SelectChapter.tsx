@@ -1,7 +1,7 @@
 'use client';
 
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
-import { QuranChapter } from '../models';
+import { QuranChapter } from '../services/models';
 import { ChangeEvent, useState } from 'react';
 import { getQuranChapters } from '../services/api';
 import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/20/solid';

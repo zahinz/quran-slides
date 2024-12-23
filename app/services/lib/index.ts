@@ -1,4 +1,4 @@
-import { Language, LanguageItem, LanguageObj, Recitation, ScriptItem } from '../../models';
+import { Language, LanguageItem, LanguageObj, Recitation, ScriptItem } from '../../services/models';
 
 export const BASE_URL = 'https://api.quran.com/api/v4';
 export const VERSES_AUDIO_URL = 'https://verses.quran.com';

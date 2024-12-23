@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { QuranVerse, SettingsObj } from '../models';
+import { QuranVerse, SettingsObj } from '../services/models';
 import VersesCtxProvider from './client/VersesCtxProvider';
 import SettingsCtxProvider from './client/SettingsCtxProvider';
 import { fetchVerses } from './actions';

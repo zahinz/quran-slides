@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent } from 'react';
-import { Recitation, ScriptItem } from '../models';
+import { Recitation, ScriptItem } from '../services/models';
 import { useSettings } from '../providers/client/SettingsCtxProvider';
 import { RECITATIONS_LIST, SCRIPTS_LIST } from '../services/lib';
 import QsButton from './QsButton';
