@@ -27,9 +27,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
     <html lang="en">
       <body className={`${poppins.variable}`}>
         <VersesProvider>
-          <main className="p-xl pb-0 h-screen flex flex-col">
-            <div className="flex justify-center flex-none">
-              <Link href={'/'} className="block w-[350px]">
+          <main className="h-screen flex flex-col">
+            <div className="flex justify-center flex-none bg-background py-xl">
+              <Link href={'/'} className="block w-[75%] sm:w-[21.875rem]">
                 <Image
                   src={QsLogo}
                   alt="QuranSlides"
@@ -38,7 +38,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
                 />
               </Link>
             </div>
-            <div className="flex-grow max-h-full overflow-auto scrollbar-hide">
+            <div className="flex-grow max-h-full overflow-auto scrollbar-hide px-xl">
               {children}
             </div>
           </main>

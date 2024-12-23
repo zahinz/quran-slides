@@ -99,7 +99,7 @@ const SlideControls = ({
 
 	return (
 		<div className={`${isDisplayed || !isFullscreenMode ? 'flex' : 'flex sm:hidden'} items-center fixed bottom-0 left-0 py-sm px-lg bg-primary-main bg-opacity-30 rounded-md w-full justify-end flex-col sm:flex-row gap-lg`}>
-			<div className="flex items-center gap-lg">
+			<div className={`flex items-center gap-lg ${slideAudio ? 'flex-col justify-center sm:flex-row' : ''}`}>
 				{ slideAudio ?
 				<audio
 					controls
@@ -122,7 +122,7 @@ const SlideControls = ({
 					onChange={onChangeLanguage}
 					renderOptionItem={(item: LanguageItem) => item.language_name}
 					containerClassName="w-auto"
-					buttonClassName="py-xs dark:bg-primary-main data-[hover]:bg-primary-hover w-[180px]"
+					buttonClassName="py-xs bg-primary-main dark:bg-primary-main data-[hover]:bg-primary-hover w-[11.25rem] text-white"
 					iconClassName="top-xs"
 				/>
 			</div>
