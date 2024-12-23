@@ -2,7 +2,7 @@
 
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
 import { QuranChapter } from '../models';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { getQuranChapters } from '../services/api';
 import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 
@@ -25,10 +25,6 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
 		setChapters(res?.chapters || []);
 	};
 
-	useEffect(() => {
-		fetchChapters();
-	}, []);
-
 	return (
 		<Combobox
 			value={selectedChapter}
@@ -36,12 +32,16 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
 			onClose={() => setSearchQuery('')}
 			immediate
 		>
-			<div className="relative">
+			<div
+				className="relative"
+				onClick={() => chapters.length === 0 ? fetchChapters() : null}
+			>
 				<ComboboxInput
 					className="w-full rounded-lg border-none bg-white dark:bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-300 dark:data-[focus]:outline-gray-600"
 					displayValue={(chapter: QuranChapter) => chapter ? `${chapter.name_simple} (${chapter.name_arabic})` : ''}
 					onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
 					placeholder={'Search chapter (surah) here'}
+					autoComplete={'off'}
 				/>
 				<ComboboxButton className="absolute top-lg right-lg">
 					<ChevronDownIcon className="h-2xl w-2xl" />

@@ -7,6 +7,7 @@ import { getQuranChapterTranslation, getQuranVerseRecitation } from '../services
 import DOMPurify from 'dompurify';
 import SlideControls from './SlideControls';
 import { LANGUAGES_LIST, VERSES_AUDIO_URL } from '../services/lib';
+import { convertToArabicNumber } from '../services/lib/helpers';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -121,7 +122,7 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 						ref={(el) => (slideRefs.current[idx] = el)}
 						className="text-3xl sm:text-6xl flex-none w-full min-w-0 text-center px-2xl pt-2xl pb-10xl sm:p-6xl leading-loose sm:leading-loose"
 					>
-						<div>{verse.text_uthmani} {`(${verse.verse_key})`}</div>
+						<div>{verse.text_uthmani} {`(${convertToArabicNumber(verse.verse_key)})`}</div>
 						<div className="text-2xl leading-normal pt-2xl">
 							<span
 								dangerouslySetInnerHTML={{

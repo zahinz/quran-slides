@@ -39,6 +39,10 @@ const GenerateSlideForm = (): React.JSX.Element => {
 	useEffect(() => {
 		if (fromVerse) {
 			setToVersesList(createRange(fromVerse, toVersesList[toVersesList.length-1]));
+
+			if (fromVerse === toVersesList[toVersesList.length-1]) {
+				setToVerse(fromVerse);
+			}
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fromVerse]);
