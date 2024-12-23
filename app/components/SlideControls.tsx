@@ -1,4 +1,6 @@
 
+'use client';
+
 import { ArrowsPointingInIcon, ArrowsPointingOutIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import QsButton from './QsButton';
 import { RefObject, useEffect, useState } from 'react';

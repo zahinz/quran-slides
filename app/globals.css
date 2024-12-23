@@ -44,3 +44,16 @@ audio {
 audio::-webkit-media-controls-panel {
   border: none;
 }
+
+.loading-spinner {
+  animation: rotateMe 2s linear infinite;
+}
+
+@keyframes rotateMe {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}

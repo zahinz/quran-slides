@@ -1,5 +1,3 @@
-'use client';
-
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
