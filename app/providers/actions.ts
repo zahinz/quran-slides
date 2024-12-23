@@ -1,9 +1,9 @@
 'use server';
 
-import { QuranVerse } from '../models';
+import { QuranVerse, Script } from '../models';
 import { getQuranVersesByType } from '../services/api';
 
-export const fetchVerses = async (): Promise<QuranVerse[]> => {
-  const res = await getQuranVersesByType('uthmani');    
+export const fetchVerses = async (scriptType: Script): Promise<QuranVerse[]> => {
+  const res = await getQuranVersesByType(scriptType);    
   return res?.verses || [];
 };

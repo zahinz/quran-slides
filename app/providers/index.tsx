@@ -1,10 +1,24 @@
 import { PropsWithChildren } from 'react';
-import { QuranVerse } from '../models';
-import VersesCtxProvider from './VersesCtxProvider';
+import { QuranVerse, SettingsObj } from '../models';
+import VersesCtxProvider from './client/VersesCtxProvider';
+import SettingsCtxProvider from './client/SettingsCtxProvider';
 import { fetchVerses } from './actions';
+import { cookies } from 'next/headers';
+
+export const SettingsProvider = async ({ children }: PropsWithChildren) => {
+  return (
+    <SettingsCtxProvider>
+      {children}
+    </SettingsCtxProvider>
+  );
+}
 
 export const VersesProvider = async ({ children }: PropsWithChildren) => {
-  const verses: QuranVerse[] = await fetchVerses();
+  const cookieStore = cookies();
+  const settings = cookieStore.get('settings')?.value || '';
+  const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null; 
+
+  const verses: QuranVerse[] = await fetchVerses(settingsObj.script);  
 
   return (
     <VersesCtxProvider verses={verses}>

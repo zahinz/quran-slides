@@ -1,7 +1,7 @@
-import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, VerseType, GetQuranVerseRecitationResponse, Language } from '../../models';
+import { GetQuranChaptersResponse, GetQuranVerseByKeyResponse, GetQuranVersesByTypeResponse, GetQuranTranslationResponse, Script, GetQuranVerseRecitationResponse, Language } from '../../models';
 import { BASE_URL, LANGUAGES_OBJ, RECITATION_ID } from '../lib';
 
-export const getQuranVersesByType = async (type: VerseType): Promise<GetQuranVersesByTypeResponse | null> => {
+export const getQuranVersesByType = async (type: Script): Promise<GetQuranVersesByTypeResponse | null> => {
 	try {
 		const response = await fetch(`${BASE_URL}/quran/verses/${type}`);
 

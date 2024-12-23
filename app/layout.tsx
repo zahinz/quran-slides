@@ -1,10 +1,8 @@
 import { Metadata } from 'next';
 import './globals.css';
-import Link from 'next/link';
-import Image from 'next/image';
-import QsLogo from '../public/assets/logo.png';
 import { Poppins } from 'next/font/google';
-import { VersesProvider } from './providers';
+import { SettingsProvider, VersesProvider } from './providers';
+import Header from './components/Header';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -26,23 +24,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
   return (
     <html lang="en">
       <body className={`${poppins.variable}`}>
-        <VersesProvider>
-          <main className="h-screen flex flex-col">
-            <div className="flex justify-center flex-none bg-background py-xl">
-              <Link href={'/'} className="block w-[75%] sm:w-[21.875rem]">
-                <Image
-                  src={QsLogo}
-                  alt="QuranSlides"
-                  width={350}
-                  className="mx-auto rounded-md"
-                />
-              </Link>
-            </div>
-            <div className="flex-grow max-h-full overflow-auto scrollbar-hide px-xl">
-              {children}
-            </div>
-          </main>
-        </VersesProvider>
+        <SettingsProvider>
+          <VersesProvider>
+            <main className="h-screen flex flex-col">
+              <Header />
+              <div className="flex-grow max-h-full overflow-auto scrollbar-hide px-xl">
+                {children}
+              </div>
+            </main>
+          </VersesProvider>
+        </SettingsProvider>
       </body>
     </html>
   );

@@ -8,7 +8,7 @@ interface DisplaySlidesPageProps {
   };
 }
 
-const DisplaySlidesPage = async ({ searchParams }: DisplaySlidesPageProps): Promise<React.JSX.Element> => {
+const DisplaySlidesPage = ({ searchParams }: DisplaySlidesPageProps): React.JSX.Element => {
 	return (
 		<SlidesBox
 			chapterId={Number(searchParams.chapter_id)}

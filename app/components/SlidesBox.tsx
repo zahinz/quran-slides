@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useVerses } from '../providers/VersesCtxProvider';
+import { useVerses } from '../providers/client/VersesCtxProvider';
 import { Language, LanguageItem, QuranVerse } from '../models';
 import { getQuranChapterTranslation, getQuranVerseRecitation } from '../services/api';
 import DOMPurify from 'dompurify';
 import SlideControls from './SlideControls';
 import { LANGUAGES_LIST, VERSES_AUDIO_URL } from '../services/lib';
 import { convertToArabicNumber } from '../services/lib/helpers';
+import { useSettings } from '../providers/client/SettingsCtxProvider';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -17,6 +18,7 @@ interface SlidesBoxProps {
 
 const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX.Element => {
 	const { verses } = useVerses();
+	const { selectedScript } = useSettings();	
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
@@ -122,7 +124,15 @@ const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX
 						ref={(el) => (slideRefs.current[idx] = el)}
 						className="text-3xl sm:text-6xl flex-none w-full min-w-0 text-center px-2xl pt-2xl pb-[11.25rem] sm:p-6xl leading-loose sm:leading-loose"
 					>
-						<div>{verse.text_uthmani} {`(${convertToArabicNumber(verse.verse_key)})`}</div>
+						{ selectedScript.code === 'uthmani_tajweed' ?
+						<span
+							dangerouslySetInnerHTML={{
+								__html: DOMPurify.sanitize((verse as any)[selectedScript.script_text_key])
+							}}
+						/>
+						:
+						<div>{(verse as any)[selectedScript.script_text_key]} {`(${convertToArabicNumber(verse.verse_key)})`}</div>
+						}
 						<div className="text-2xl leading-normal pt-2xl">
 							<span
 								dangerouslySetInnerHTML={{

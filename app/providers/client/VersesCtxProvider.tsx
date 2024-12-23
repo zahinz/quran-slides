@@ -1,7 +1,7 @@
 'use client';
 
 import { PropsWithChildren, createContext, useContext } from 'react';
-import { QuranVerse } from '../models';
+import { QuranVerse } from '../../models';
 
 type VersesState = {
   verses: QuranVerse[];

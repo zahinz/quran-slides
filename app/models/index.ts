@@ -98,7 +98,13 @@ interface Meta {
   author_name: string;
 };
 
-export type VerseType = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
+export type Script = 'indopak' | 'uthmani' | 'uthmani_simple' | 'uthmani_tajweed' | 'imlaei';
+
+export interface ScriptItem {
+	code: Script;
+	script_name: string;
+	script_text_key: string;
+};
 
 export type Language = 'en' | 'ms' | 'fr' | 'es' | 'id' | 'ko' | 'tr';
 
@@ -112,3 +118,7 @@ export type LanguageObj = Record<Language, LanguageDetails>;
 export interface LanguageItem extends LanguageDetails {
 	iso_code: Language
 };
+
+export interface SettingsObj {
+	script: Script;
+}
