@@ -58,7 +58,7 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
 						value={chapter}
 						className="group flex items-center p-lg select-none data-[focus]:bg-gray-300 dark:data-[focus]:bg-gray-900 cursor-pointer"
 					>
-						<CheckCircleIcon className="invisible group-data-[selected]:visible h-2xl w-2xl mr-lg text-green-400" />
+						<CheckCircleIcon className="invisible group-data-[selected]:visible h-lg w-lg mr-lg text-green-400" />
             <div>{`${chapter.name_simple} (${chapter.name_arabic})`}</div>
           </ComboboxOption>
         ))}
