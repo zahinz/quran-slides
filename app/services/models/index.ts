@@ -115,6 +115,7 @@ export type Language = 'en' | 'ms' | 'fr' | 'es' | 'id' | 'ko' | 'tr';
 type LanguageDetails = {
   resource_id: number;
   language_name: string;
+	flag: string;
 };
 
 export type LanguageObj = Record<Language, LanguageDetails>;
@@ -136,4 +137,5 @@ export interface Recitation {
 export interface SettingsObj {
 	script: Script;
 	recitation: number;
+	language: Language;
 }

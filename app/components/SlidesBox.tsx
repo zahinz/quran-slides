@@ -9,6 +9,7 @@ import SlideControls from './SlideControls';
 import { LANGUAGES_LIST, VERSES_AUDIO_URL } from '../services/lib';
 import { convertToArabicNumber } from '../services/lib/helpers';
 import { useSettings } from '../providers/client/SettingsCtxProvider';
+import { useTranslation } from '../i18n/client';
 
 interface SlidesBoxProps {
 	chapterId: number;
@@ -18,12 +19,12 @@ interface SlidesBoxProps {
 
 const SlidesBox = ({ chapterId, verseFrom, verseTo }: SlidesBoxProps): React.JSX.Element => {
 	const { verses } = useVerses();
-	const { selectedScript, selectedRecitation } = useSettings();	
+	const { selectedScript, selectedRecitation, selectedLng } = useSettings();	
 
 	const [filteredVerses, setFilteredVerses] = useState<QuranVerse[]>([]);
 	const [displayedSlideIndex, setDisplayedSlideIndex] = useState<number>(0);
 	const [isLoadingAudio, setLoadingAudio] = useState<boolean>(false);
-	const [selectedLanguage, setSelectedLanguage] = useState<LanguageItem>(LANGUAGES_LIST[0]);
+	const [selectedLanguage, setSelectedLanguage] = useState<LanguageItem>(selectedLng);
 
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const slideRefs = useRef<HTMLDivElement[] | null[]>([]);

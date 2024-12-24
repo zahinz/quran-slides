@@ -6,8 +6,11 @@ import { QuranChapter } from '../services/models';
 import QsListbox from './QsListbox';
 import { useRouter } from 'next/navigation';
 import QsButton from './QsButton';
+import { useTranslation } from '../i18n/client';
 
 const GenerateSlideForm = (): React.JSX.Element => {
+	const { t } = useTranslation();
+
 	const [selectedChapter, setSelectedChapter] = useState<QuranChapter | null>(null);
 	const [fromVersesList, setFromVersesList] = useState<number[]>([]);
 	const [toVersesList, setToVersesList] = useState<number[]>([]);
@@ -67,14 +70,14 @@ const GenerateSlideForm = (): React.JSX.Element => {
 			<>
 				<div className="flex flex-col sm:flex-row py-lg gap-lg">
 					<QsListbox
-						label={'From verse:'}
+						label={t('from_verse')}
 						items={fromVersesList}
 						value={fromVerse}
 						onChange={setFromVerse}
 						renderValue={(value) => value > 0 ? value : ''}
 					/>
 					<QsListbox
-						label={'To verse:'}
+						label={t('to_verse')}
 						items={toVersesList}
 						value={toVerse}
 						onChange={setToVerse}
@@ -86,7 +89,9 @@ const GenerateSlideForm = (): React.JSX.Element => {
 					className="mt-lg w-full"
 					disabled={!fromVerse || !toVerse}
 				>
-					<span className="text-center w-full">Generate</span>
+					<span className="text-center w-full">
+						{t('generate')}
+					</span>
 				</QsButton>
 			</>
 			: null }

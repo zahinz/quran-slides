@@ -5,6 +5,7 @@ import { QuranChapter } from '../services/models';
 import { ChangeEvent, useState } from 'react';
 import { getQuranChapters } from '../services/api';
 import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useTranslation } from '../i18n/client';
 
 interface SelectChapterProps {
 	selectedChapter: QuranChapter | null;
@@ -12,6 +13,8 @@ interface SelectChapterProps {
 };
 
 const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterProps): React.JSX.Element => {
+	const { t } = useTranslation();
+
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [chapters, setChapters] = useState<QuranChapter[]>([]);
 
@@ -40,7 +43,7 @@ const SelectChapter = ({ selectedChapter, setSelectedChapter }: SelectChapterPro
 					className="w-full rounded-lg border-none bg-white dark:bg-gray-800 py-lg pl-lg pr-4xl focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-gray-300 dark:data-[focus]:outline-gray-600"
 					displayValue={(chapter: QuranChapter) => chapter ? `${chapter.name_simple} (${chapter.name_arabic})` : ''}
 					onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-					placeholder={'Search chapter (surah) here'}
+					placeholder={t('search_chapter_here')}
 					autoComplete={'off'}
 				/>
 				<ComboboxButton className="absolute top-lg right-lg">

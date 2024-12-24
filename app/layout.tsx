@@ -3,6 +3,8 @@ import './globals.css';
 import { Poppins } from 'next/font/google';
 import { SettingsProvider, VersesProvider } from './providers';
 import Header from './components/Header';
+import { dir } from 'i18next';
+import { getSavedLanguage } from './i18n';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -21,8 +23,10 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
+  const lng = getSavedLanguage();
+
   return (
-    <html lang="en">
+    <html lang={lng} dir={dir(lng)}>
       <body className={`${poppins.variable}`}>
         <SettingsProvider>
           <VersesProvider>

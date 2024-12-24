@@ -7,6 +7,7 @@ import { RefObject, useEffect, useState } from 'react';
 import { Audio, LanguageItem } from '../services/models';
 import QsListbox from './QsListbox';
 import { LANGUAGES_LIST } from '../services/lib';
+import { useTranslation } from '../i18n/client';
 
 interface SlideControlsProps {
 	containerRef: RefObject<HTMLDivElement>;
@@ -29,6 +30,8 @@ const SlideControls = ({
 	selectedLanguage,
 	onChangeLanguage
 }: SlideControlsProps): React.JSX.Element => {
+	const { t } = useTranslation();
+
 	const [isFullscreenMode, setFullscreenMode] = useState<boolean>(false);
 	const [isDisplayed, setDisplayed] = useState<boolean>(false);
 
@@ -120,11 +123,11 @@ const SlideControls = ({
 				<QsListbox
 					items={LANGUAGES_LIST}
 					value={selectedLanguage}
-					renderValue={(value: LanguageItem) => value.language_name}
 					onChange={onChangeLanguage}
-					renderOptionItem={(item: LanguageItem) => item.language_name}
+					renderValue={(value: LanguageItem) => `${t(value.language_name)} ${value.flag}`}
+					renderOptionItem={(item: LanguageItem) => `${t(item.language_name)} ${item.flag}`}
 					containerClassName="w-auto"
-					buttonClassName="py-xs bg-primary-main dark:bg-primary-main data-[hover]:bg-primary-hover w-[11.25rem] text-white"
+					buttonClassName="py-xs bg-primary-main dark:bg-primary-main data-[hover]:bg-primary-hover text-white"
 					iconClassName="top-xs"
 				/>
 			</div>
