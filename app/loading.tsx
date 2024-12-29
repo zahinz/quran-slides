@@ -6,6 +6,6 @@ const Loading = () => {
       <ArrowPathIcon className="h-6xl w-6xl loading-spinner text-secondary-main" />
     </div>
   );
-}
+};
 
 export default Loading;

@@ -1,7 +1,11 @@
 'use client';
 
 import i18next from 'i18next';
-import { initReactI18next, useTranslation as useTranslationOrg, Trans } from 'react-i18next';
+import {
+  initReactI18next,
+  useTranslation as useTranslationOrg,
+  Trans
+} from 'react-i18next';
 import i18nResourcesToBackend from 'i18next-resources-to-backend';
 import i18nLanguageDetector from 'i18next-browser-languagedetector';
 import { fallbackLng, languages } from './config';
@@ -37,7 +41,7 @@ export const useTranslation = () => {
   useEffect(() => {
     const settings = getCookie('settings');
     const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null;
-    const lng: Language = settingsObj?.language || fallbackLng;  
+    const lng: Language = settingsObj?.language || fallbackLng;
 
     if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
       i18n.changeLanguage(lng);

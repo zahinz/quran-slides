@@ -29,7 +29,7 @@ export const getSavedLanguage = (): Language => {
   const settings = cookieStore.get('settings')?.value || '';
   const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null;
   return settingsObj?.language || fallbackLng;
-}
+};
 
 export const getTranslation = async () => {
   const lng = getSavedLanguage();
@@ -39,4 +39,4 @@ export const getTranslation = async () => {
     t: i18nextInstance.getFixedT(lng),
     i18n: i18nextInstance
   };
-}
+};

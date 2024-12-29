@@ -14,7 +14,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'QuranSlides',
-  description: 'Interactive platform to display Quranic verses in slide format, ideal for presentations, study, and recitation.',
+  description:
+    'Interactive platform to display Quranic verses in slide format, ideal for presentations, study, and recitation.',
   icons: {
     icon: '/assets/logo-2.png'
   }
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const lng = getSavedLanguage();
 
   return (
@@ -41,6 +42,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) =>  {
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

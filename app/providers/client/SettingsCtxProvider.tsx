@@ -1,8 +1,23 @@
 'use client';
 
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { LanguageItem, Recitation, ScriptItem, SettingsObj } from '../../services/models';
-import { LANGUAGES_LIST, RECITATIONS_LIST, SCRIPTS_LIST } from '../../services/lib';
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
+import {
+  LanguageItem,
+  Recitation,
+  ScriptItem,
+  SettingsObj
+} from '../../services/models';
+import {
+  LANGUAGES_LIST,
+  RECITATIONS_LIST,
+  SCRIPTS_LIST
+} from '../../services/lib';
 import { getCookie } from '../../services/lib/helpers';
 
 type SettingsState = {
@@ -36,22 +51,32 @@ export const useSettings = (): SettingsState => {
 };
 
 const SettingsCtxProvider = ({ children }: PropsWithChildren) => {
-  const [selectedLng, setSelectedLng] = useState<LanguageItem>(INITIAL_STATE.selectedLng);
-  const [selectedScript, setSelectedScript] = useState<ScriptItem>(INITIAL_STATE.selectedScript);
-  const [selectedRecitation, setSelectedRecitation] = useState<Recitation>(INITIAL_STATE.selectedRecitation);
+  const [selectedLng, setSelectedLng] = useState<LanguageItem>(
+    INITIAL_STATE.selectedLng
+  );
+  const [selectedScript, setSelectedScript] = useState<ScriptItem>(
+    INITIAL_STATE.selectedScript
+  );
+  const [selectedRecitation, setSelectedRecitation] = useState<Recitation>(
+    INITIAL_STATE.selectedRecitation
+  );
 
   const fetchSavedSettings = () => {
-    const settings = getCookie('settings');    
+    const settings = getCookie('settings');
     const settingsObj: SettingsObj = settings ? JSON.parse(settings) : null;
-    
-    const lngObj = LANGUAGES_LIST.find((l) => l.iso_code === settingsObj?.language);
+
+    const lngObj = LANGUAGES_LIST.find(
+      (l) => l.iso_code === settingsObj?.language
+    );
     const scriptObj = SCRIPTS_LIST.find((s) => s.code === settingsObj?.script);
-    const recitationObj = RECITATIONS_LIST.find((r) => r.id === Number(settingsObj?.recitation));
+    const recitationObj = RECITATIONS_LIST.find(
+      (r) => r.id === Number(settingsObj?.recitation)
+    );
 
     if (lngObj) setSelectedLng(lngObj);
     if (scriptObj) setSelectedScript(scriptObj);
     if (recitationObj) setSelectedRecitation(recitationObj);
-  }
+  };
 
   useEffect(() => {
     fetchSavedSettings();
@@ -71,6 +96,6 @@ const SettingsCtxProvider = ({ children }: PropsWithChildren) => {
       {children}
     </SettingsContext.Provider>
   );
-}
+};
 
 export default SettingsCtxProvider;

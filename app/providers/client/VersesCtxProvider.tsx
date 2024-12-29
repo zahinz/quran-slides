@@ -27,12 +27,10 @@ interface VersesCtxProviderProps extends PropsWithChildren {
 
 const VersesCtxProvider = ({ children, verses }: VersesCtxProviderProps) => {
   return (
-    <VersesContext.Provider
-      value={{ verses }}
-    >
+    <VersesContext.Provider value={{ verses }}>
       {children}
     </VersesContext.Provider>
   );
-}
+};
 
 export default VersesCtxProvider;

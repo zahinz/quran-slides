@@ -1,9 +1,18 @@
 'use client';
 
 import { FormEvent } from 'react';
-import { LanguageItem, Recitation, ScriptItem, SettingsObj } from '../services/models';
+import {
+  LanguageItem,
+  Recitation,
+  ScriptItem,
+  SettingsObj
+} from '../services/models';
 import { useSettings } from '../providers/client/SettingsCtxProvider';
-import { LANGUAGES_LIST, RECITATIONS_LIST, SCRIPTS_LIST } from '../services/lib';
+import {
+  LANGUAGES_LIST,
+  RECITATIONS_LIST,
+  SCRIPTS_LIST
+} from '../services/lib';
 import QsButton from './QsButton';
 import QsListbox from './QsListbox';
 import { useTranslation } from '../i18n/client';
@@ -11,7 +20,14 @@ import { useTranslation } from '../i18n/client';
 const SettingsList = () => {
   const { t } = useTranslation();
 
-  const { selectedScript, setSelectedScript, selectedRecitation, setSelectedRecitation, selectedLng, setSelectedLng } = useSettings();
+  const {
+    selectedScript,
+    setSelectedScript,
+    selectedRecitation,
+    setSelectedRecitation,
+    selectedLng,
+    setSelectedLng
+  } = useSettings();
 
   const saveSettings = (e: FormEvent) => {
     e.preventDefault();
@@ -24,7 +40,7 @@ const SettingsList = () => {
 
     document.cookie = `settings=${JSON.stringify(settingsObj)}; path=/`;
     window.location.assign('/');
-  }
+  };
 
   return (
     <form
@@ -36,8 +52,12 @@ const SettingsList = () => {
         items={LANGUAGES_LIST}
         value={selectedLng}
         onChange={setSelectedLng}
-        renderValue={(value: LanguageItem) => `${t(value.language_name)} ${value.flag}`}
-        renderOptionItem={(item: LanguageItem) => `${t(item.language_name)} ${item.flag}`}
+        renderValue={(value: LanguageItem) =>
+          `${t(value.language_name)} ${value.flag}`
+        }
+        renderOptionItem={(item: LanguageItem) =>
+          `${t(item.language_name)} ${item.flag}`
+        }
       />
       <QsListbox
         label={t('verse_script')}
@@ -52,19 +72,18 @@ const SettingsList = () => {
         items={RECITATIONS_LIST}
         value={selectedRecitation}
         onChange={setSelectedRecitation}
-        renderValue={(value: Recitation) => `${value.reciter_name}${value.style ? ` (${value.style})`: ''}`}
-        renderOptionItem={(item: Recitation) => `${item.reciter_name}${item.style ? ` (${item.style})`: ''}`}
+        renderValue={(value: Recitation) =>
+          `${value.reciter_name}${value.style ? ` (${value.style})` : ''}`
+        }
+        renderOptionItem={(item: Recitation) =>
+          `${item.reciter_name}${item.style ? ` (${item.style})` : ''}`
+        }
       />
-      <QsButton
-        type={'submit'}
-        className="text-center mt-lg"
-      >
-			  <span className="text-center w-full">
-          {t('save')}
-        </span>
+      <QsButton type={'submit'} className="text-center mt-lg">
+        <span className="text-center w-full">{t('save')}</span>
       </QsButton>
     </form>
   );
-}
+};
 
 export default SettingsList;

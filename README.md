@@ -9,6 +9,7 @@ This repository contains the slides for the Quran slides generator.
 1. Clone the repository.
 
 2. Navigate to the project directory:
+
    ```bash
    cd quran-slides
    ```
@@ -21,6 +22,7 @@ This repository contains the slides for the Quran slides generator.
 ## Usage
 
 - Development: Run the development server
+
   ```bash
   pnpm dev
   ```
